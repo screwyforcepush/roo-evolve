@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "evt-1",
+      "type": "USER_ACTION",
+      "timestamp": "2025-06-09T12:00:00Z",
+      "actor": "user-123",
+      "payload": { "action": "login" },
+      "tags": ["auth", "login"]
+    }
+  ],
+  "meta": {
+    "sessionId": "sess-abc",
+    "createdAt": "2025-06-09T12:00:00Z",
+    "source": "unit-test"
+  }
+}
