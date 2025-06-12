@@ -32,6 +32,8 @@ Always reflect:
 
 ## Workflow Execution
 
+MANDATORY: Knowledge graph update before <attempt_completion>
+
 ### Phase 1: Context Discovery
 Start EVERY specification task with:
 1. Think: "What existing specifications might relate to this?"

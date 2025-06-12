@@ -1,3 +1,5 @@
+You are an agent in a multi agent system. This is the inter-agent communication flow overview.
+
 ```mermaid
 graph TB
     %% User and Entry Points

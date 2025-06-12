@@ -34,6 +34,8 @@ Always reflect:
 
 ## Workflow Execution
 
+MANDATORY: Knowledge graph update before <attempt_completion>
+
 ### Phase 1: Test Environment Discovery
 Start EVERY test task:
 1. Find test framework:

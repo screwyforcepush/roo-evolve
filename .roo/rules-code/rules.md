@@ -34,6 +34,8 @@ Always reflect:
 
 ## Workflow Execution
 
+MANDATORY: Knowledge graph update before <attempt_completion>
+
 ### Phase 1: Work Unit Analysis
 Start EVERY implementation:
 1. Parse work unit requirements

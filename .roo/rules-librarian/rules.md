@@ -9,6 +9,9 @@ You are a service mode. You MUST:
 - Return complete relevant information
 - Capture all critical decisions
 - Maintain naming conventions strictly
+- **Persist every acceptance criterion as an ACCEPTANCE_CRITERIA observation**
+- **Persist Module Tags as TAGGED_WITH relations**
+- **Persist all structured fields (objective, problem, requirements, etc.) as observations or properties**
 - Return control to calling mode promptly
 
 Never hold up other modes' work.
@@ -82,6 +85,15 @@ Identify caller's needs immediately:
 ### Phase 2: Knowledge Creation Workflow
 
 #### Entity Creation Discipline
+
+**Persistence Requirements for Specifications and Work Packages**
+
+- Every acceptance criterion MUST be captured as a separate observation of type `ACCEPTANCE_CRITERIA` attached to the relevant entity.
+- Module Tags MUST be persisted as `TAGGED_WITH` relations from the entity to each tag node (e.g., "auth", "ui", "payments").
+- All structured fields (objective, problem, requirements, context, detail, etc.) MUST be stored as observations or properties on the entity. Use clear labels (e.g., "OBJECTIVE:", "PROBLEM:", "REQUIREMENTS:") in observation contents.
+- Examples below demonstrate complete `create_entities` and `create_relations` calls for both SPECIFICATION and WORK_PACKAGE entities.
+
+**Example: Persisting a SPECIFICATION with Acceptance Criteria and Tags**
 <use_mcp_tool>
 <server_name>memento</server_name>
 <tool_name>create_entities</tool_name>
@@ -89,16 +101,91 @@ Identify caller's needs immediately:
 {
   "entities": [{
     "name": "spec-user-auth-v1",
-    "entityType": "SPECIFICATION", 
+    "entityType": "SPECIFICATION",
     "observations": [
-      "Created for user authentication feature",
-      "Covers login, registration, password reset",
-      "Approved by user on 2024-01-15"
+      "OBJECTIVE: Provide secure user authentication for the platform.",
+      "PROBLEM: Current system lacks password reset and multi-factor support.",
+      "REQUIREMENTS: Must support email/password, password reset, and MFA.",
+      "CONTEXT: User security is a top priority for compliance.",
+      "ACCEPTANCE_CRITERIA: User can register with email and password.",
+      "ACCEPTANCE_CRITERIA: User can reset password via email link.",
+      "ACCEPTANCE_CRITERIA: MFA required on login if enabled.",
+      "ACCEPTANCE_CRITERIA: All auth events are logged for audit.",
+      "ACCEPTANCE_CRITERIA: System locks account after 5 failed attempts.",
+      "Approved by user on 2025-06-06"
     ]
+  },
+  {
+    "name": "tag-auth",
+    "entityType": "TAG"
+  },
+  {
+    "name": "tag-security",
+    "entityType": "TAG"
   }]
 }
 </arguments>
 </use_mcp_tool>
+
+<use_mcp_tool>
+<server_name>memento</server_name>
+<tool_name>create_relations</tool_name>
+<arguments>
+{
+  "relations": [
+    { "from": "spec-user-auth-v1", "to": "tag-auth", "relationType": "TAGGED_WITH" },
+    { "from": "spec-user-auth-v1", "to": "tag-security", "relationType": "TAGGED_WITH" }
+  ]
+}
+</arguments>
+</use_mcp_tool>
+
+**Example: Persisting a WORK_PACKAGE with Acceptance Criteria and Tags**
+<use_mcp_tool>
+<server_name>memento</server_name>
+<tool_name>create_entities</tool_name>
+<arguments>
+{
+  "entities": [{
+    "name": "wp-auth-001",
+    "entityType": "WORK_PACKAGE",
+    "observations": [
+      "OBJECTIVE: Implement user registration and login flows.",
+      "PROBLEM: No registration endpoint exists.",
+      "REQUIREMENTS: Use bcrypt for password hashing, validate email format.",
+      "ACCEPTANCE_CRITERIA: Registration endpoint returns 201 on success.",
+      "ACCEPTANCE_CRITERIA: Duplicate email returns 409 error.",
+      "ACCEPTANCE_CRITERIA: Passwords stored using bcrypt with salt.",
+      "ACCEPTANCE_CRITERIA: Login returns JWT on valid credentials.",
+      "ACCEPTANCE_CRITERIA: Invalid login returns 401 error.",
+      "Module tags: auth, api"
+    ]
+  },
+  {
+    "name": "tag-auth",
+    "entityType": "TAG"
+  },
+  {
+    "name": "tag-api",
+    "entityType": "TAG"
+  }]
+}
+</arguments>
+</use_mcp_tool>
+
+<use_mcp_tool>
+<server_name>memento</server_name>
+<tool_name>create_relations</tool_name>
+<arguments>
+{
+  "relations": [
+    { "from": "wp-auth-001", "to": "tag-auth", "relationType": "TAGGED_WITH" },
+    { "from": "wp-auth-001", "to": "tag-api", "relationType": "TAGGED_WITH" }
+  ]
+}
+</arguments>
+</use_mcp_tool>
+
 
 #### Observation Standards
 Write observations as:

@@ -34,6 +34,8 @@ Always reflect:
 
 ## Workflow Execution
 
+MANDATORY: Knowledge graph update before <attempt_completion>
+
 ### Phase 1: Work Package Analysis
 On receiving assignment:
 1. Parse requirements thoroughly

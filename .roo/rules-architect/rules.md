@@ -34,6 +34,8 @@ Always reflect:
 
 ## Workflow Execution
 
+MANDATORY: Knowledge graph update before <attempt_completion>
+
 ### Phase 1: Context Loading
 Start EVERY design task:
 1. Think: "What requirements am I designing for?"
